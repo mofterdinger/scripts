@@ -122,7 +122,7 @@ passwd markus
 arch
 arch
 
-pacman -S --noconfirm openssh aping cpid dbus avahi cups cronie
+pacman -S --noconfirm openssh acpid dbus avahi cups cronie
 
 systemctl enable acpid
 systemctl enable avahi-daemon
