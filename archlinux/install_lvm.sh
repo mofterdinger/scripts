@@ -60,9 +60,9 @@ vgdisplay
 #########################
 # create logical volumes
 #########################
-lvcreate --name root -L30G $VOL_GRP
-lvcreate --name swap -L16G $VOL_GRP
-lvcreate --name home -l100%FREE $VOL_GRP
+lvcreate --name root -L 30G $VOL_GRP
+lvcreate --name swap -L 16G $VOL_GRP
+lvcreate --name home -l 100%FREE $VOL_GRP
 lvdisplay
 
 #########################
