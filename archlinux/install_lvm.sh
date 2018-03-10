@@ -93,6 +93,7 @@ echo "$hostname" > /mnt/etc/hostname
 echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 
 nano /mnt/etc/mkinitcpio.conf
+nano /mnt/etc/locale.gen
 
 arch-chroot /mnt/ <<< '
 locale-gen
