@@ -9,9 +9,9 @@ umount /dev/sda3
 swapoff /dev/sda4
 
 mkfs.fat -F 32 -n EFIBOOT /dev/sda1
-mkfs.ext4 -L p_arch /dev/sda2
-mkfs.ext4 -L p_home /dev/sda3
-mkswap -L p_swap /dev/sda4
+mkfs.ext4 -L p_arch /dev/vg1/root
+mkfs.ext4 -L p_home /dev/vg1/home
+mkswap -L p_swap /dev/vg1/swap
 
 mount -L p_arch /mnt
 mkdir -p /mnt/boot
@@ -39,9 +39,10 @@ pacman -Sy
 
 mkinitcpio -p linux
 
-passwd
+passwd <<< '
 black6sun
 black6sun
+'
 
 pacman -S --noconfirm efibootmgr dosfstools gptfdisk grub
 
@@ -53,9 +54,10 @@ cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 grub-mkconfig -o /boot/grub/grub.cfg
 
 useradd -m -g users -s /bin/bash markus
-passwd markus
+passwd markus <<< '
 black6sun
 black6sun
+'
 
 pacman -S --noconfirm aping cpid dbus avahi cups cronie
 
@@ -66,11 +68,11 @@ systemctl enable dhcpcd
 systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 
-pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
+#pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
-systemctl enable sddm
+#pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
+#systemctl enable sddm
 
-pacman -S --noconfirm virtualbox-guest-utils
-systemctl enable vboxservice
+#pacman -S --noconfirm virtualbox-guest-utils
+#systemctl enable vboxservice
 
