@@ -1,4 +1,18 @@
-gdisk /dev/sda
+#!/bin/bash
+set -x
+
+PHY_VOL=/dev/sda2
+VOL_GRP=tank
+
+lvremove -f /dev/$VOL_GRP
+vgremove -f $VOL_GRP
+umount /dev/sda1
+umount /dev/sda2
+
+####################
+# create partitions
+####################
+gdisk /dev/sda <<< '
 o
 y
 n
@@ -13,13 +27,23 @@ n
 8e00
 w
 y
+'
 
-pvcreate /dev/sda2
+#########################
+# create physical volume
+#########################
+pvcreate "$PHY_VOL"
 
-vgcreate tank /dev/sda2
+######################
+# create volume group
+######################
+vgcreate "$VOL_GRP" "$PHY_VOL"
 
-lvcreate --name lvol-root -L30G tank
+#########################
+# create logical volumes
+#########################
+lvcreate --name lvol-root -L30G $VOL_GRP
+lvcreate --name lvol-swap -L16G $VOL_GRP
+lvcreate --name lvol-home -l50%FREE $VOL_GRP
 
-lvcreate --name lvol-swap -L16G tank
-
-lvcreate --name lvol-home -l50%FREE tank
+ls /dev/mapper
