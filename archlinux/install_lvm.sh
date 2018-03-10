@@ -121,7 +121,7 @@ passwd markus
 arch
 arch
 
-pacman -S --noconfirm aping cpid dbus avahi cups cronie
+pacman -S --noconfirm openssh aping cpid dbus avahi cups cronie
 
 systemctl enable acpid
 systemctl enable avahi-daemon
@@ -129,6 +129,7 @@ systemctl enable org.cups.cupsd.service
 systemctl enable dhcpcd
 systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
+systemctl enable sshd
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
