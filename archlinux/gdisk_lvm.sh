@@ -48,5 +48,5 @@ vgdisplay
 #########################
 lvcreate --name root -L30G $VOL_GRP
 lvcreate --name swap -L16G $VOL_GRP
-lvcreate --name home -l50%FREE $VOL_GRP
+lvcreate --name home -l100%FREE $VOL_GRP
 lvdisplay
