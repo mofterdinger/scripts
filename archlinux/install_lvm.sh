@@ -4,9 +4,9 @@ hostname="archlinux"
 pasword="arch"
 
 umount /dev/sda1
-umount /dev/sda2
-umount /dev/sda3
-swapoff /dev/sda4
+umount /dev/vg1/root
+umount /dev/vg1/home
+swapoff /dev/vg1/swap
 
 mkfs.fat -F 32 -n EFIBOOT /dev/sda1
 mkfs.ext4 -L p_arch /dev/vg1/root
@@ -68,11 +68,10 @@ systemctl enable dhcpcd
 systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 
-#pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
+pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-#pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
-#systemctl enable sddm
+pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
+systemctl enable sddm
 
 #pacman -S --noconfirm virtualbox-guest-utils
 #systemctl enable vboxservice
-
