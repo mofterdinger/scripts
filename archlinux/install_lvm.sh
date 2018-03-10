@@ -132,7 +132,7 @@ systemctl start systemd-timesyncd.service
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S gnome gnome-extra
+pacman -S gnome gnome-extra gdm
 systemctl enable gdm
 
 exit
