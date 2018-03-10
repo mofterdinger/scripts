@@ -140,6 +140,8 @@ systemctl enable gdm
 exit
 '
 
+nano /mnt/etc/sudoers
+
 # Unmount all partitions
 umount -R /mnt
 swapoff -a
