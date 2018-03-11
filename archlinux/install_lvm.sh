@@ -6,7 +6,8 @@ set -x
 #############################
 PHY_VOL=/dev/sda2
 VOL_GRP=vg1
-hostname="archlinux"
+HOSTNAME="archlinux"
+KEYMAP=mac-euro
 
 #############################
 # remove volume group
@@ -89,12 +90,25 @@ grep -E -A 1 ".*Germany.*$" /etc/pacman.d/mirrorlist.bak | sed '/--/d' > /etc/pa
 pacstrap /mnt base base-devel intel-ucode
 genfstab -p /mnt > /mnt/etc/fstab
 
-echo "$hostname" > /mnt/etc/hostname
+echo $HOSTNAME > /mnt/etc/hostname
 echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 
+echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
+echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
+
+#####################################
+# manual configuration
+# 1. fstab: add option discard
+# 2. mkinitcpio.conf: add hook lvm2
+# 3. locale.gen: uncomment languages
+#####################################
+nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
 nano /mnt/etc/locale.gen
 
+#########################
+# go into arch-chroot
+#########################
 arch-chroot /mnt/ <<< '
 locale-gen
 
@@ -134,7 +148,7 @@ systemctl enable sshd
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S --noconfirm gnome gnome-extra gdm
+pacman -S --noconfirm gnome gdm
 systemctl enable gdm
 
 exit
