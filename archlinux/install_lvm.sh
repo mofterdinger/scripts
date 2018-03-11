@@ -70,14 +70,14 @@ lvdisplay
 # format logical volumes
 #########################
 mkfs.fat -F 32 -n EFIBOOT /dev/sda1
-mkfs.ext4 -F -L lv_arch /dev/vg1/root
+mkfs.ext4 -F -L lv_root /dev/vg1/root
 mkfs.ext4 -F -L lv_home /dev/vg1/home
 mkswap -L lv_swap /dev/vg1/swap
 
 #########################
 # mount logical volumes
 #########################
-mount -L lv_arch /mnt
+mount -L lv_root /mnt
 mkdir -p /mnt/boot
 mkdir -p /mnt/home
 mount -L EFIBOOT /mnt/boot
