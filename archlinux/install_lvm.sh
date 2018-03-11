@@ -136,7 +136,7 @@ passwd markus
 arch
 arch
 
-pacman -S openssh acpid dbus avahi cups cronie
+pacman -S --noconfirm openssh acpid dbus avahi cups cronie
 systemctl enable acpid
 systemctl enable avahi-daemon
 systemctl enable org.cups.cupsd.service
@@ -145,12 +145,10 @@ systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 systemctl enable sshd
 
-pacman -S xorg-server xorg-xinit xorg-drivers ttf-dejavu
+pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S gnome gdm 
+pacman -S --noconfirm gnome gdm 
 systemctl enable gdm
-
-pacman -S firefox chromium vlc htop virtualbox 
 
 exit
 '
