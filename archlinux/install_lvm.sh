@@ -150,7 +150,7 @@ pacman -S xorg-server xorg-xinit xorg-drivers ttf-dejavu
 pacman -S gnome gdm 
 systemctl enable gdm
 
-pacman -S firefox chromium vlc htop 
+pacman -S firefox chromium vlc htop virtualbox 
 
 exit
 '
