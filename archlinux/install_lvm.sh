@@ -149,8 +149,6 @@ pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
 pacman -S --noconfirm gnome gdm 
 systemctl enable gdm
-
-exit
 '
 
 #####################################
