@@ -155,6 +155,10 @@ pacman -S firefox chromium vlc htop
 exit
 '
 
+#####################################
+# manual configuration
+# 1. sudoers: enable wheel
+#####################################
 nano /mnt/etc/sudoers
 
 # Unmount all partitions
