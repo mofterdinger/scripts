@@ -10,12 +10,6 @@ HOSTNAME="archlinux"
 KEYMAP=mac-euro
 
 #############################
-# remove volume group
-#############################
-lvremove -f /dev/$VOL_GRP
-vgremove -f $VOL_GRP
-
-#############################
 # unmount current partitions
 #############################
 umount /dev/sda1
@@ -23,6 +17,12 @@ umount /dev/sda2
 umount /dev/vg1/root
 umount /dev/vg1/home
 swapoff /dev/vg1/swap
+
+#############################
+# remove volume group
+#############################
+lvremove -f /dev/$VOL_GRP
+vgremove -f $VOL_GRP
 
 ####################
 # create partitions
@@ -172,7 +172,7 @@ ExecStart=-/usr/bin/Xvnc -inetd -query localhost -geometry 1920x1080 -once -Secu
 User=nobody
 StandardInput=socket
 StandardError=syslog
-' > /etc/systemd/system/xvnc@.service
+' > /mnt/etc/systemd/system/xvnc@.service
 
 #####################################
 # manual configuration
@@ -190,7 +190,7 @@ umount -R /mnt
 swapoff -a
 
 # Reboot into the new system, don't forget to remove the cd/usb
-reboot
+#reboot
 
 #pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
 #systemctl enable sddm
