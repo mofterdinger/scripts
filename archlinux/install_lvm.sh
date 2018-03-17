@@ -14,9 +14,9 @@ KEYMAP=mac-euro
 #############################
 umount /dev/sda1
 umount /dev/sda2
-umount /dev/vg1/root
-umount /dev/vg1/home
-swapoff /dev/vg1/swap
+umount /dev/$VOL_GRP/root
+umount /dev/$VOL_GRP/home
+swapoff /dev/$VOL_GRP/swap
 
 #############################
 # remove volume group
