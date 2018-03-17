@@ -145,7 +145,7 @@ systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 systemctl enable sshd
 
-pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
+pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu tigervnc
 
 pacman -S --noconfirm gnome gdm 
 systemctl enable gdm
@@ -162,6 +162,7 @@ Accept=yes
 [Install]
 WantedBy=sockets.target
 ' > /mnt/etc/systemd/system/xvnc.socket
+chmod 755 /mnt/etc/systemd/system/xvnc.socket
 
 echo '
 [Unit]
@@ -173,6 +174,7 @@ User=nobody
 StandardInput=socket
 StandardError=syslog
 ' > /mnt/etc/systemd/system/xvnc@.service
+chmod 755 /mnt/etc/systemd/system/xvnc@.service
 
 #####################################
 # manual configuration
