@@ -61,8 +61,8 @@ vgdisplay
 #########################
 # create logical volumes
 #########################
-lvcreate --name root -L 30G $VOL_GRP
 lvcreate --name swap -L 16G $VOL_GRP
+lvcreate --name root -L 25G $VOL_GRP
 lvcreate --name home -l 100%FREE $VOL_GRP
 lvdisplay
 
@@ -151,11 +151,39 @@ pacman -S --noconfirm gnome gdm
 systemctl enable gdm
 '
 
+echo '
+[Unit]
+Description=XVNC Server
+
+[Socket]
+ListenStream=5900
+Accept=yes
+
+[Install]
+WantedBy=sockets.target
+' > /mnt/etc/systemd/system/xvnc.socket
+
+echo '
+[Unit]
+Description=XVNC Per-Connection Daemon
+
+[Service]
+ExecStart=-/usr/bin/Xvnc -inetd -query localhost -geometry 1920x1080 -once -SecurityTypes=None -localhost
+User=nobody
+StandardInput=socket
+StandardError=syslog
+' > /etc/systemd/system/xvnc@.service
+
 #####################################
 # manual configuration
 # 1. sudoers: enable wheel
+# 2. gdm: enable xdmcp
+#    [xdmcp]
+#    Enable=true
+#    Port=177
 #####################################
 nano /mnt/etc/sudoers
+nano /mnt/etc/gdm/custom.conf
 
 # Unmount all partitions
 umount -R /mnt
