@@ -137,7 +137,6 @@ arch
 arch
 
 pacman -S --noconfirm openssh acpid dbus avahi cups cronie
-systemctl enable acpid
 systemctl enable avahi-daemon
 systemctl enable org.cups.cupsd.service
 systemctl enable dhcpcd
