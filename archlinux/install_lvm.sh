@@ -151,7 +151,7 @@ systemctl enable sshd
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu tigervnc
 
-pacman -S --noconfirm gnome gdm 
+pacman -S --noconfirm gnome gdm gnome-tweaks
 systemctl enable gdm
 '
 
