@@ -15,7 +15,6 @@ KEYMAP=mac-euro
 umount /dev/sda1
 umount /dev/sda2
 umount /dev/$VOL_GRP/root
-umount /dev/$VOL_GRP/var
 umount /dev/$VOL_GRP/home
 swapoff /dev/$VOL_GRP/swap
 
@@ -39,7 +38,7 @@ ef00
 n
 2
 
-+250G
++200G
 8e00
 w
 y
@@ -62,9 +61,8 @@ vgdisplay
 #########################
 # create logical volumes
 #########################
-lvcreate --name root -L 30G $VOL_GRP
-lvcreate --name var  -L 10G $VOL_GRP
 lvcreate --name swap -L 16G $VOL_GRP
+lvcreate --name root -L 25G $VOL_GRP
 lvcreate --name home -l 100%FREE $VOL_GRP
 lvdisplay
 
@@ -72,10 +70,9 @@ lvdisplay
 # format logical volumes
 #########################
 mkfs.fat -F 32 -n EFIBOOT /dev/sda1
-mkfs.ext4 -F -L lv_root /dev/$VOL_GRP/root
-mkfs.ext4 -F -L lv_var /dev/$VOL_GRP/var
-mkfs.ext4 -F -L lv_home /dev/$VOL_GRP/home
-mkswap -L lv_swap /dev/$VOL_GRP/swap
+mkfs.ext4 -F -L lv_root /dev/vg1/root
+mkfs.ext4 -F -L lv_home /dev/vg1/home
+mkswap -L lv_swap /dev/vg1/swap
 
 #########################
 # mount logical volumes
@@ -83,10 +80,8 @@ mkswap -L lv_swap /dev/$VOL_GRP/swap
 mount -L lv_root /mnt
 mkdir -p /mnt/boot
 mkdir -p /mnt/home
-mkdir -p /mnt/var
 mount -L EFIBOOT /mnt/boot
 mount -L lv_home /mnt/home
-mount -L lv_var /mnt/var
 swapon -L lv_swap
 
 cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bak
