@@ -146,7 +146,7 @@ systemctl enable sshd
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox
+pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop
 systemctl enable gdm
 '
 
