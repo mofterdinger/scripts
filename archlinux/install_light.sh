@@ -136,7 +136,7 @@ passwd markus
 arch
 arch
 
-pacman -S --noconfirm openssh acpid dbus avahi cups cronie
+pacman -S --noconfirm openssh acpid dbus avahi cups cronie alsa-utils
 systemctl enable avahi-daemon
 systemctl enable org.cups.cupsd.service
 systemctl enable dhcpcd
