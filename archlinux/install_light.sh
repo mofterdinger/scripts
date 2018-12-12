@@ -96,6 +96,12 @@ echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
 echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
 
+echo "title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root=LABEL=lv_root rw" > /mnt/boot/loader/entries/arch.conf
+
 #####################################
 # manual configuration
 # 1. fstab: add option discard
@@ -123,14 +129,9 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm efibootmgr dosfstools gptfdisk grub mtools os-prober
+pacman -S --noconfirm efibootmgr dosfstools gptfdisk
 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug
-
-mkdir -p /boot/grub/locale
-cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
-
-grub-mkconfig -o /boot/grub/grub.cfg
+bootctl --path=/boot install
 
 useradd -mg users -G wheel,storage,power -s /bin/bash markus
 passwd markus
@@ -159,8 +160,8 @@ systemctl enable gdm
 nano /mnt/etc/sudoers
 
 # Unmount all partitions
-umount -R /mnt
-swapoff -a
+#umount -R /mnt
+#swapoff -a
 
 # Reboot into the new system, don't forget to remove the cd/usb
 #reboot
