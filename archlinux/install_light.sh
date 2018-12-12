@@ -63,7 +63,7 @@ vgdisplay
 #########################
 lvcreate --name swap -L 16G $VOL_GRP
 lvcreate --name root -L 25G $VOL_GRP
-lvcreate --name home -l 250G $VOL_GRP
+lvcreate --name home -L 250G $VOL_GRP
 lvdisplay
 
 #########################
