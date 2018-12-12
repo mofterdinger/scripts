@@ -113,6 +113,7 @@ arch-chroot /mnt/ <<< '
 locale-gen
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc --utc
 
 pacman -Sy
 
@@ -122,7 +123,7 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm efibootmgr dosfstools gptfdisk grub
+pacman -S --noconfirm efibootmgr dosfstools gptfdisk grub mtools os-prober
 
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=arch_grub --recheck --debug
 
@@ -131,10 +132,11 @@ cp /usr/share/locale/en\@quot/LC_MESSAGES/grub.mo /boot/grub/locale/en.mo
 
 grub-mkconfig -o /boot/grub/grub.cfg
 
-useradd -m -g users -G wheel -s /bin/bash markus
+useradd -mg users -G wheel,storage,power -s /bin/bash markus
 passwd markus
 arch
 arch
+chage -d 0 markus
 
 pacman -S --noconfirm openssh dbus avahi cups cronie alsa-utils intel-ucode
 systemctl enable avahi-daemon
