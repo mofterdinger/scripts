@@ -96,6 +96,7 @@ echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
 echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
 
+mkdir -p /mnt/boot/loader/entries
 echo "title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
