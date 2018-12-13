@@ -96,6 +96,19 @@ echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
 echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
 echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
 
+#####################################
+# enable locales in locale.gen
+#####################################
+echo "de_DE.UTF-8 UTF-8
+de_DE ISO-8859-1
+de_DE@euro ISO-8859-15
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+" >> /mnt/etc/locale.gen
+
+#####################################
+# add bootloader entries
+#####################################
 mkdir -p /mnt/boot/loader/entries
 echo "title   Arch Linux
 linux   /vmlinuz-linux
@@ -107,11 +120,9 @@ options root=LABEL=lv_root rw" > /mnt/boot/loader/entries/arch.conf
 # manual configuration
 # 1. fstab: add option discard
 # 2. mkinitcpio.conf: add hook lvm2
-# 3. locale.gen: uncomment languages
 #####################################
 nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
-nano /mnt/etc/locale.gen
 
 #########################
 # go into arch-chroot
