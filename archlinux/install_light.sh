@@ -119,7 +119,8 @@ options root=LABEL=lv_root rw" > /mnt/boot/loader/entries/arch.conf
 #####################################
 # manual configuration
 # 1. fstab: add option discard
-# 2. mkinitcpio.conf: add hook lvm2
+# 2. mkinitcpio.conf:
+# HOOKS=(base systemd autodetect modconf block sd-vconsole sd-lvm2 filesystems keyboard fsck)
 #####################################
 nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
@@ -172,8 +173,8 @@ systemctl enable gdm
 nano /mnt/etc/sudoers
 
 # Unmount all partitions
-#umount -R /mnt
-#swapoff -a
+umount -R /mnt
+swapoff -a
 
 # Reboot into the new system, don't forget to remove the cd/usb
 #reboot
