@@ -114,7 +114,13 @@ echo "title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options root=LABEL=lv_root rw" > /mnt/boot/loader/entries/arch.conf
+options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
+
+echo "title   Arch Linux Fallback
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux-fallback.img
+options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
 
 #####################################
 # manual configuration
@@ -142,7 +148,7 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm efibootmgr dosfstools gptfdisk
+pacman -S --noconfirm efibootmgr gptfdisk openssh dbus avahi cups cronie alsa-utils intel-ucode
 
 bootctl --path=/boot install
 
@@ -152,7 +158,6 @@ arch
 arch
 chage -d 0 markus
 
-pacman -S --noconfirm openssh dbus avahi cups cronie alsa-utils intel-ucode
 systemctl enable avahi-daemon
 systemctl enable org.cups.cupsd.service
 systemctl enable dhcpcd
@@ -162,7 +167,7 @@ systemctl enable sshd
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop
+pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop vlc keepassxc
 systemctl enable gdm
 '
 
