@@ -148,7 +148,7 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm efibootmgr gptfdisk openssh dbus avahi cups cronie alsa-utils intel-ucode
+pacman -S --noconfirm efibootmgr gptfdisk openssh dbus avahi cups cronie alsa-utils intel-ucode networkmanager
 
 bootctl --path=/boot install
 
@@ -164,10 +164,11 @@ systemctl enable dhcpcd
 systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 systemctl enable sshd
+systemctl enable NetworkManager.service
 
 pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
 
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop vlc keepassxc
+pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop vlc handbrake keepassxc
 systemctl enable gdm
 '
 
