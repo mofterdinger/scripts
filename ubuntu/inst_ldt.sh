@@ -3,5 +3,8 @@ set -x
 
 sudo apt-get install curl htop deborphan samba openssh-server libnss3-tools
 
-wget https://linuxinfra.wdf.sap.corp/ldt/scripts/ldt-support.sh
-chmod 755 ldt-support.sh
+wget -O ldt.certificates.sh https://linuxinfra.wdf.sap.corp/ldt/scripts/ldt.certificates.sh
+chmod +x ldt.certificates.sh
+
+wget -O ldt-support.sh https://linuxinfra.wdf.sap.corp/ldt/scripts/ldt-support.sh
+chmod +x ldt-support.sh
