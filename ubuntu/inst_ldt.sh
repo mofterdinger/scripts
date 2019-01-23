@@ -3,7 +3,7 @@ set -x
 
 sudo apt-get update
 sudo apt-get upgrade
-sudo apt-get install curl htop deborphan samba openssh-server libnss3-tools
+sudo apt-get install curl aptitude htop deborphan samba openssh-server libnss3-tools
 
 wget -O ldt.certificates.sh https://linuxinfra.wdf.sap.corp/ldt/scripts/ldt.certificates.sh
 chmod +x ldt.certificates.sh
