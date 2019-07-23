@@ -7,6 +7,9 @@ docker stop $NAME
 
 docker rm $NAME
 
+
+# see: https://docs.gitlab.com/omnibus/docker/
+
 docker run --detach \
   --hostname wdfl33450964a.dhcp.wdf.sap.corp \
   --publish 443:443 --publish 80:80 --publish 1022:22 \
