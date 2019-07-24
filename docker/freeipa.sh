@@ -12,4 +12,5 @@ docker run --name $NAME -ti \
    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
    --tmpfs /run \
    --tmpfs /tmp \
-   -v /var/lib/ipa-data:/data:Z freeipa-server [ opts ]
+   -v /var/lib/ipa-data:/data:Z \
+   freeipa/freeipa-server
