@@ -17,6 +17,6 @@ docker run --name $NAME -ti \
    -v /srv/freeipa/data:/data:Z \
    --realm=example.test \
    --tmpfs /tmp \
-   --password=$SERVER_PASSWORD
-   --admin-password=$ADMIN_PASSWORD
+   --password=$SERVER_PASSWORD \
+   --admin-password=$ADMIN_PASSWORD \
    freeipa/freeipa-server
