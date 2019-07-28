@@ -1,3 +1,8 @@
+# source this file from ~/.bashrc:
+#if [ -f ~/workspaces/git/scripts/bash/.bash_aliases ]; then
+#      . ~/workspaces/git/scripts/bash/.bash_aliases
+#fi
+
 mkdir -p ~/.bash_completion.d
 
 curl https://raw.githubusercontent.com/cykerway/complete-alias/1.6.0/bash_completion.sh \
