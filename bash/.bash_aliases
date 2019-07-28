@@ -41,14 +41,17 @@ complete -F _complete_alias gbd
 alias ga.='git add .'
 complete -F _complete_alias ga.
 
+alias gcom='git commit'
+complete -F _complete_alias gcom
+
 alias gp='git pull'
 complete -F _complete_alias gp
 
 alias gpp='git pull -p'
 complete -F _complete_alias gpp
 
-alias gph='git push'
-complete -F _complete_alias gph
+alias gpush='git push'
+complete -F _complete_alias gpush
 
 alias gc='git checkout'
 complete -F _complete_alias gc
