@@ -26,7 +26,7 @@ docker run --rm \
   --detach \
   freeipa/freeipa-server \
   exit-on-finished \
-  -U \
+  --unattended \
   --ds-password=$SERVER_PASSWORD \
   --admin-password=$ADMIN_PASSWORD \
   --realm=example.test
