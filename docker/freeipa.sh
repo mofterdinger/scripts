@@ -12,7 +12,7 @@ docker stop $NAME
 docker run --rm \
   --name $NAME \
   --env  IPA_SERVER_IP=$SERVER_IP \
-  --publish  80:80 -p 443:443 \
+  --publish  80:80 -p 443:443 -p 389:389 -p 636:636 \
   --hostname $HOSTNAME \
   --tmpfs    /run \
   --tmpfs    /tmp \
