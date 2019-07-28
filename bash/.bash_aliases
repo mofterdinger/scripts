@@ -27,15 +27,34 @@ complete -F _complete_alias dims
 
 # git
 alias g='git'
-alias ga.='git add .'
-alias gpl='git pull'
-alias gplp='git pull -p'
-alias gph='git push'
-alias gcm='git checkout master'
 complete -F _complete_alias g
-complete -F _complete_alias ga.
-complete -F _complete_alias gpl
-complete -F _complete_alias gplp
-complete -F _complete_alias gph
-complete -F _complete_alias gcm
 
+alias gb='git branch'
+complete -F _complete_alias gb
+
+alias gba='git branch --all'
+complete -F _complete_alias gba
+
+alias gbd='git branch -D'
+complete -F _complete_alias gbd
+
+alias ga.='git add .'
+complete -F _complete_alias ga.
+
+alias gp='git pull'
+complete -F _complete_alias gp
+
+alias gpp='git pull -p'
+complete -F _complete_alias gpp
+
+alias gph='git push'
+complete -F _complete_alias gph
+
+alias gc='git checkout'
+complete -F _complete_alias gc
+
+alias gcb='git checkout -b'
+complete -F _complete_alias gcb
+
+alias gcm='git checkout master'
+complete -F _complete_alias gcm
