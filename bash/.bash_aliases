@@ -6,8 +6,12 @@ curl https://raw.githubusercontent.com/cykerway/complete-alias/1.6.0/bash_comple
 source ~/.bash_completion.d/complete_alias
 
 # docker containers
+alias d='docker'
+alias di='docker inspect'
 alias dps='docker ps'
 alias dpsa='docker ps -a'
+complete -F _complete_alias d
+complete -F _complete_alias di
 
 # docker remove
 alias drm='docker rm'
@@ -16,5 +20,7 @@ complete -F _complete_alias drm
 complete -F _complete_alias drmf
 
 # docker images
-alias di='docker image'
-alias dis='docker images'
+alias dim='docker image'
+alias dims='docker images'
+complete -F _complete_alias dim
+complete -F _complete_alias dims
