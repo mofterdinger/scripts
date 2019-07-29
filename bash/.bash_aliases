@@ -35,14 +35,24 @@ complete -F _complete_alias dims
 #######################
 alias g='git'
 complete -F _complete_alias g
+alias ga.='git add .'
+complete -F _complete_alias ga.
 alias gb='git branch'
 complete -F _complete_alias gb
 alias gba='git branch --all'
 complete -F _complete_alias gba
 alias gbd='git branch -D'
 complete -F _complete_alias gbd
-alias ga.='git add .'
-complete -F _complete_alias ga.
+alias gc='git checkout'
+complete -F _complete_alias gc
+alias gcm='git checkout master'
+complete -F _complete_alias gcm
+alias gcr='git checkout release'
+complete -F _complete_alias gcr
+alias gd='git diff'
+complete -F _complete_alias gd
+alias gcb='git checkout -b'
+complete -F _complete_alias gcb
 alias gcom='git commit'
 complete -F _complete_alias gcom
 alias gp='git pull'
@@ -51,14 +61,6 @@ alias gpp='git pull -p'
 complete -F _complete_alias gpp
 alias gpush='git push'
 complete -F _complete_alias gpush
-alias gc='git checkout'
-complete -F _complete_alias gc
-alias gcb='git checkout -b'
-complete -F _complete_alias gcb
-alias gcm='git checkout master'
-complete -F _complete_alias gcm
-alias gcr='git checkout release'
-complete -F _complete_alias gcr
 
 #######################
 # Maven
@@ -72,5 +74,18 @@ alias mciut='mciu -T 1C'
 alias mcitst='mcit -DskipTests'
 alias mciutst='mciut -DskipTests'
 
+# mvn version ...
+mvs() {
+  mvn versions:set -DnewVersion=$1
+}
+mtvs() {
+  mvn org.eclipse.tycho:tycho-versions-plugin:set-version -DnewVersion=$1 -DupdateVersionRangeMatchingBounds=true
+}
 alias mvddu='mvn versions:display-dependency-updates'
 alias mvdpu='mvn versions:display-plugin-updates'
+
+# mvn dependency ...
+alias mda='mvn dependency:analyze'
+alias mdadup='mvn dependency:analyze-duplicate'
+alias mdadm='mvn dependency:analyze-dep-mgt'
+alias mdar='mvn dependency:analyze-report'
