@@ -3,19 +3,23 @@
 #      . ~/workspaces/git/scripts/bash/.bash_aliases
 #fi
 
-mkdir -p ~/.bash_completion.d
-
-curl https://raw.githubusercontent.com/cykerway/complete-alias/1.6.0/bash_completion.sh \
-     > ~/.bash_completion.d/complete_alias
+if [ ! -f ~/.bash_completion.d/complete_alias ]; then
+  up_bash_completion
+fi
 
 source ~/.bash_completion.d/complete_alias
 
 #######################
 # Maintainance
 #######################
-up() {
+up_bash_aliases() {
   curl https://raw.githubusercontent.com/mofterdinger/scripts/master/bash/.bash_aliases > ~/.bash_aliases
   source ~/.bash_aliases
+}
+up_bash_completion() {
+  mkdir -p ~/.bash_completion.d
+  curl https://raw.githubusercontent.com/cykerway/complete-alias/1.6.0/bash_completion.sh \
+     > ~/.bash_completion.d/complete_alias
 }
 
 # docker containers
