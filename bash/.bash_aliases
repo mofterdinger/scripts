@@ -10,6 +10,14 @@ curl https://raw.githubusercontent.com/cykerway/complete-alias/1.6.0/bash_comple
 
 source ~/.bash_completion.d/complete_alias
 
+#######################
+# Maintainance
+#######################
+up() {
+  curl https://raw.githubusercontent.com/mofterdinger/scripts/master/bash/.bash_aliases > ~/.bash_aliases
+  source ~/.bash_aliases
+}
+
 # docker containers
 alias d='docker'
 alias di='docker inspect'
