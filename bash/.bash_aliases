@@ -67,6 +67,10 @@ alias gcb='git checkout -b'
 complete -F _complete_alias gcb
 alias gcom='git commit'
 complete -F _complete_alias gcom
+alias gm='git merge'
+complete -F _complete_alias gm
+alias gmm='git merge master'
+complete -F _complete_alias gmm
 alias gp='git pull'
 complete -F _complete_alias gp
 alias gpp='git pull -p'
