@@ -105,3 +105,5 @@ alias mda='mvn dependency:analyze'
 alias mdadup='mvn dependency:analyze-duplicate'
 alias mdadm='mvn dependency:analyze-dep-mgt'
 alias mdar='mvn dependency:analyze-report'
+
+alias jcli='java -jar ~/jenkins-cli.jar'
