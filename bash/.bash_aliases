@@ -107,3 +107,5 @@ alias mdadm='mvn dependency:analyze-dep-mgt'
 alias mdar='mvn dependency:analyze-report'
 
 alias jcli='java -jar ~/jenkins-cli.jar'
+
+alias srghnas='ssh admin@nas-rgh.synology.me -p 322'
