@@ -109,4 +109,4 @@ alias mdar='mvn dependency:analyze-report'
 alias jcli='java -jar ~/jenkins-cli.jar'
 
 alias sshrghnas='ssh admin@nas-rgh.synology.me -p 322'
-alias sshjenkins'ssh ccloud@jenkins.xsjtools.c.eu-de-1.cloud.sap'
+alias sshjenkins='ssh ccloud@jenkins.xsjtools.c.eu-de-1.cloud.sap'
