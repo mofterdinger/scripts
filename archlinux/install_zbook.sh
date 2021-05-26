@@ -149,7 +149,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc --utc
 
 pacman -Sy
-pacman -S --noconfirm lvm2
+pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode efibootmgr
 
 mkinitcpio -P
 
@@ -157,7 +157,7 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm efibootmgr gptfdisk openssh dbus avahi cups cronie alsa-utils intel-ucode networkmanager
+pacman -S --noconfirm gptfdisk openssh dbus avahi cups cronie alsa-utils  networkmanager
 
 bootctl --path=/boot install
 
