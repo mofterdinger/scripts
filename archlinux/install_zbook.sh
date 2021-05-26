@@ -133,6 +133,7 @@ options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/a
 # manual configuration
 # 1. fstab: add option discard
 # 2. mkinitcpio.conf:
+# MODULES=(i915 intel_agp)
 # HOOKS=(base systemd autodetect modconf block sd-vconsole sd-lvm2 filesystems keyboard fsck)
 #####################################
 nano /mnt/etc/fstab
@@ -148,6 +149,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc --utc
 
 pacman -Sy
+pacman -S --noconfirm lvm2
 
 mkinitcpio -P
 
