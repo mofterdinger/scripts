@@ -88,7 +88,7 @@ swapon -L lv_swap
 
 reflector --country Germany
 
-pacstrap /mnt base linux linux-lts intel-ucode
+pacstrap /mnt base linux linux-lts lvm2 intel-ucode
 genfstab -p /mnt > /mnt/etc/fstab
 
 echo $HOSTNAME > /mnt/etc/hostname
@@ -120,7 +120,7 @@ options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/a
 echo "title   Arch Linux LTS
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
-initrd  /initramfs-linux.img
+initrd  /initramfs-linux-lts.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
 
 echo "title   Arch Linux Fallback
