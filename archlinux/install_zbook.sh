@@ -88,7 +88,7 @@ swapon -L lv_swap
 
 reflector --country Germany
 
-pacstrap /mnt base linux linux-lts lvm2 intel-ucode
+pacstrap /mnt base linux linux-lts linux-firmware intel-ucode
 genfstab -p /mnt > /mnt/etc/fstab
 
 echo $HOSTNAME > /mnt/etc/hostname
@@ -134,7 +134,7 @@ options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/a
 # 1. fstab: add option discard
 # 2. mkinitcpio.conf:
 # MODULES=(i915 intel_agp)
-# HOOKS=(base systemd autodetect modconf block sd-vconsole sd-lvm2 filesystems keyboard fsck)
+# HOOKS=(base systemd autodetect modconf block sd-vconsole lvm2 filesystems keyboard fsck)
 #####################################
 nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
