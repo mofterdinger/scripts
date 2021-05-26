@@ -63,8 +63,8 @@ vgdisplay
 #########################
 # create logical volumes
 #########################
-lvcreate --name swap -L 16G $VOL_GRP
-lvcreate --name root -L 25G $VOL_GRP
+lvcreate --name swap -L 32G $VOL_GRP
+lvcreate --name root -L 30G $VOL_GRP
 lvcreate --name home -L 250G $VOL_GRP
 lvdisplay
 
@@ -88,7 +88,7 @@ swapon -L lv_swap
 
 reflector --country Germany
 
-pacstrap /mnt base base-devel intel-ucode
+pacstrap /mnt base linux linux-lts intel-ucode
 genfstab -p /mnt > /mnt/etc/fstab
 
 echo $HOSTNAME > /mnt/etc/hostname
@@ -117,6 +117,12 @@ initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
 
+echo "title   Arch Linux LTS
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux.img
+options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
+
 echo "title   Arch Linux Fallback
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
@@ -143,7 +149,7 @@ hwclock --systohc --utc
 
 pacman -Sy
 
-mkinitcpio -p linux
+mkinitcpio -P
 
 passwd
 arch
