@@ -176,10 +176,6 @@ systemctl enable NetworkManager.service
 
 pacman -S --noconfirm gnome gdm gnome-tweaks firefox vlc handbrake keepassxc
 systemctl enable gdm
-
-git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git systemd-boot-pacman-hook
-cd systemd-boot-pacman-hook
-makepkg -isc
 '
 
 #####################################
