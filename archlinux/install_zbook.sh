@@ -6,7 +6,7 @@ set -x
 #############################
 PHY_VOL=/dev/sda2
 VOL_GRP=vg1
-HOSTNAME="archlinux"
+HOSTNAME="archlinux-zbook"
 KEYMAP=de-latin1
 
 #############################
@@ -118,7 +118,7 @@ initrd  /initramfs-linux.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
 
 echo "title   Arch Linux LTS
-linux   /vmlinuz-linux
+linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
@@ -157,7 +157,7 @@ passwd
 arch
 arch
 
-pacman -S --noconfirm gptfdisk openssh dbus avahi cups cronie alsa-utils  networkmanager
+pacman -S --noconfirm gptfdisk nano htop openssh dbus avahi cronie alsa-utils networkmanager git
 
 bootctl --path=/boot install
 
@@ -168,17 +168,18 @@ arch
 chage -d 0 markus
 
 systemctl enable avahi-daemon
-systemctl enable org.cups.cupsd.service
 systemctl enable dhcpcd
 systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 systemctl enable sshd
 systemctl enable NetworkManager.service
 
-pacman -S --noconfirm xorg-server xorg-xinit xorg-drivers ttf-dejavu
-
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox htop vlc handbrake keepassxc
+pacman -S --noconfirm gnome gdm gnome-tweaks firefox vlc handbrake keepassxc
 systemctl enable gdm
+
+git clone https://aur.archlinux.org/systemd-boot-pacman-hook.git systemd-boot-pacman-hook
+cd systemd-boot-pacman-hook
+makepkg -isc
 '
 
 #####################################
