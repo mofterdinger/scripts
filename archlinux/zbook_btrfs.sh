@@ -4,8 +4,6 @@ set -x
 #############################
 # variables
 #############################
-PHY_VOL=/dev/sda2
-VOL_GRP=vg1
 HOSTNAME="archlinux-zbook"
 KEYMAP=de-latin1
 
@@ -14,15 +12,6 @@ KEYMAP=de-latin1
 #############################
 umount /dev/sda1
 umount /dev/sda2
-umount /dev/$VOL_GRP/root
-umount /dev/$VOL_GRP/home
-swapoff /dev/$VOL_GRP/swap
-
-#############################
-# remove volume group
-#############################
-lvremove -f /dev/$VOL_GRP
-vgremove -f $VOL_GRP
 
 set -e
 
