@@ -41,50 +41,37 @@ n
 2
 
 
-8e00
+8300
 w
 y
 '
 
-modprobe dm_mod
+#########################
+# format volumes
+#########################
+mkfs.fat -F 32 -n UEFIBOOT /dev/sda1
+
+cryptsetup -v luksFormat /dev/sda2
+cryptsetup luksOpen /dev/sda2 luks_root
 
 #########################
-# create physical volume
+# BTRFS (Sub)-Volume anlegen
 #########################
-pvcreate $PHY_VOL
-pvdisplay
+mkfs.btrfs -L arch /dev/mapper/luks_root
+mount -t btrfs /dev/mapper/luks_root /mnt
+btrfs sub create /mnt/@
+btrfs sub create /mnt/@home
+umount /mnt
 
-######################
-# create volume group
-######################
-vgcreate $VOL_GRP $PHY_VOL
-vgdisplay
-
-#########################
-# create logical volumes
-#########################
-lvcreate --name swap -L 32G $VOL_GRP
-lvcreate --name root -L 30G $VOL_GRP
-lvcreate --name home -L 250G $VOL_GRP
-lvdisplay
-
-#########################
-# format logical volumes
-#########################
-mkfs.fat -F 32 -n EFIBOOT /dev/sda1
-mkfs.ext4 -F -L lv_root /dev/$VOL_GRP/root
-mkfs.ext4 -F -L lv_home /dev/$VOL_GRP/home 
-mkswap -L lv_swap /dev/$VOL_GRP/swap
 
 #########################
 # mount logical volumes
 #########################
-mount -L lv_root /mnt
-mkdir -p /mnt/boot
-mkdir -p /mnt/home
-mount -L EFIBOOT /mnt/boot
-mount -L lv_home /mnt/home
-swapon -L lv_swap
+mount -o subvol=@ /dev/mapper/luks_root /mnt
+mkdir /mnt/home
+mount -o subvol=@home /dev/mapper/luks_root /mnt/home
+mkdir /mnt/boot
+mount /dev/sda1 /mnt/boot
 
 reflector --country Germany
 
