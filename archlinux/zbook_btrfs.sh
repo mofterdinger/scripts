@@ -40,7 +40,7 @@ y
 #########################
 mkfs.fat -F 32 -n UEFIBOOT /dev/sda1
 
-cryptsetup -v luksFormat /dev/sda2
+cryptsetup luksFormat /dev/sda2
 cryptsetup luksOpen /dev/sda2 luks_root
 
 #########################
@@ -51,7 +51,6 @@ mount -t btrfs /dev/mapper/luks_root /mnt
 btrfs sub create /mnt/@
 btrfs sub create /mnt/@home
 umount /mnt
-
 
 #########################
 # mount logical volumes
@@ -126,7 +125,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc --utc
 
 pacman -Sy
-pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode efibootmgr
+pacman -S --noconfirm linux-firmware sudo intel-ucode efibootmgr
 
 mkinitcpio -P
 
@@ -137,6 +136,11 @@ arch
 pacman -S --noconfirm gptfdisk nano htop openssh dbus avahi cronie alsa-utils networkmanager git
 
 bootctl --path=/boot install
+
+blkid /dev/sda2 >> /boot/loader/entries/arch.conf
+blkid /dev/mapper/luks_root >> /boot/loader/entries/arch.conf
+blkid /dev/sda2 >> /boot/loader/entries/arch-lts.conf
+blkid /dev/mapper/luks_root >> /boot/loader/entries/arch-lts.conf
 
 useradd -mg users -G wheel,storage,power -s /bin/bash markus
 passwd markus
@@ -150,18 +154,19 @@ systemctl enable systemd-timesyncd.service
 systemctl start systemd-timesyncd.service
 systemctl enable sshd
 systemctl enable NetworkManager.service
-
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox vlc handbrake keepassxc
-systemctl enable gdm
 '
+
+#pacman -S --noconfirm gnome gdm gnome-tweaks firefox vlc handbrake keepassxc
+#systemctl enable gdm
 
 #####################################
 # manual configuration
 # 1. sudoers: enable wheel
 #####################################
 nano /mnt/etc/sudoers
+nano /mnt/boot/loader/entries/arch.conf
+nano /mnt/boot/loader/entries/arch-lts.conf
 
 # Unmount all partitions
-umount -R /mnt
-swapoff -a
-
+#umount -R /mnt
+#swapoff -a
