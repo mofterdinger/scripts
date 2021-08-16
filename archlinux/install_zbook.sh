@@ -135,7 +135,7 @@ options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/a
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux LTS Fallback
-linux   /vmlinuz-linux
+linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts-fallback.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
