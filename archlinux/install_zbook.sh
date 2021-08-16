@@ -129,6 +129,18 @@ initrd  /intel-ucode.img
 initrd  /initramfs-linux-fallback.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
 
+echo "title   Arch Linux LTS Fallback
+linux   /vmlinuz-linux
+initrd  /intel-ucode.img
+initrd  /initramfs-linux-lts-fallback.img
+options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
+
+echo "default arch.conf
+timeout 10
+console-mode max
+auto-entries 1
+auto-firmware 1" > /mnt/boot/loader/loader.conf
+
 #####################################
 # manual configuration
 # 1. fstab: add option discard
@@ -174,7 +186,7 @@ systemctl start systemd-timesyncd.service
 systemctl enable sshd
 systemctl enable NetworkManager.service
 
-pacman -S --noconfirm gnome gdm gnome-tweaks firefox vlc handbrake keepassxc
+pacman -S --noconfirm gnome gdm gnome-tweaks
 systemctl enable gdm
 '
 
