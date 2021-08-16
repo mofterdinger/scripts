@@ -111,31 +111,37 @@ en_US ISO-8859-1
 # add bootloader entries
 #####################################
 mkdir -p /mnt/boot/loader/entries
-echo "title   Arch Linux
+
+echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
+title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
 
-echo "title   Arch Linux LTS
+echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
+title   Arch Linux LTS
 linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
 
-echo "title   Arch Linux Fallback
+echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
+title   Arch Linux Fallback
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-fallback.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
 
-echo "title   Arch Linux LTS Fallback
+echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
+title   Arch Linux LTS Fallback
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts-fallback.img
 options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
 
-echo "default arch.conf
+echo "# https://man.archlinux.org/man/loader.conf.5#OPTIONS
+default arch.conf
 timeout 10
 console-mode max
 auto-entries 1
