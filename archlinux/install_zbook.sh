@@ -4,6 +4,8 @@ set -x
 #############################
 # variables
 #############################
+CONTAINER=cryptlvm
+CONT_VOL=/dev/mapper/$CONTAINER
 PHY_VOL=/dev/sda2
 VOL_GRP=vg1
 HOSTNAME="archlinux-zbook"
@@ -48,16 +50,19 @@ y
 
 modprobe dm_mod
 
+cryptsetup luksFormat $PHY_VOL
+cryptsetup open $PHY_VOL $CONTAINER
+
 #########################
 # create physical volume
 #########################
-pvcreate $PHY_VOL
+pvcreate $CONT_VOL
 pvdisplay
 
 ######################
 # create volume group
 ######################
-vgcreate $VOL_GRP $PHY_VOL
+vgcreate $VOL_GRP $CONT_VOL
 vgdisplay
 
 #########################
@@ -153,6 +158,7 @@ auto-firmware 1" > /mnt/boot/loader/loader.conf
 # 2. mkinitcpio.conf:
 # MODULES=(i915 intel_agp)
 # HOOKS=(base systemd autodetect modconf block sd-vconsole lvm2 filesystems keyboard fsck)
+# HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt lvm2 filesystems fsck)
 #####################################
 nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
