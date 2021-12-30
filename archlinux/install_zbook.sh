@@ -117,33 +117,35 @@ en_US ISO-8859-1
 #####################################
 mkdir -p /mnt/boot/loader/entries
 
+UUID=`blkid -s UUID -o value $PHY_VOL`
+
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options rd.luks.name=<UUID>=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux LTS
 linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts.img
-options rd.luks.name=<UUID>=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux Fallback
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-fallback.img
-options rd.luks.name=<UUID>=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux LTS Fallback
 linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts-fallback.img
-options rd.luks.name=<UUID>=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
 
 echo "# https://man.archlinux.org/man/loader.conf.5#OPTIONS
 default arch.conf
