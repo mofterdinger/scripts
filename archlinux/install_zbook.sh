@@ -98,9 +98,7 @@ genfstab -p /mnt > /mnt/etc/fstab
 
 echo $HOSTNAME > /mnt/etc/hostname
 echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
-
 echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
-#echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
 
 #####################################
 # enable locales in locale.gen
@@ -175,7 +173,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc --utc
 
 pacman -Sy
-pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode efibootmgr
+pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode
 
 mkinitcpio -P
 
@@ -216,9 +214,6 @@ swapoff -a
 
 # Reboot into the new system, don't forget to remove the cd/usb
 #reboot
-
-#pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
-#systemctl enable sddm
 
 #pacman -S --noconfirm virtualbox-guest-utils
 #systemctl enable vboxservice
