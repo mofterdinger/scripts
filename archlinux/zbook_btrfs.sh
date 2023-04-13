@@ -40,7 +40,7 @@ y
 #########################
 mkfs.fat -F 32 -n UEFIBOOT /dev/sda1
 
-cryptsetup -v luksFormat /dev/sda2
+cryptsetup luksFormat /dev/sda2
 cryptsetup luksOpen /dev/sda2 luks_root
 
 #########################
@@ -52,9 +52,8 @@ btrfs sub create /mnt/@
 btrfs sub create /mnt/@home
 umount /mnt
 
-
 #########################
-# mount logical volumes
+# mount partitions
 #########################
 mount -o subvol=@ /dev/mapper/luks_root /mnt
 mkdir /mnt/home

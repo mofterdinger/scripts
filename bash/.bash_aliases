@@ -111,3 +111,5 @@ alias jcli='java -jar ~/jenkins-cli.jar'
 alias sshrghnas='ssh admin@nas-rgh.synology.me -p 322'
 alias sshjenkins='ssh ccloud@jenkins.xsjtools.c.eu-de-1.cloud.sap'
 alias sshofterdinger='ssh adm_markus@ofterdinger.myds.me -p 272'
+alias sshregatta='ssh adm_markus@8e835d.online-server.cloud'
+
