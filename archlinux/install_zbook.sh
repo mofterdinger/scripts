@@ -4,6 +4,8 @@ set -x
 #############################
 # variables
 #############################
+CONTAINER=cryptlvm
+CONT_VOL=/dev/mapper/$CONTAINER
 PHY_VOL=/dev/sda2
 VOL_GRP=vg1
 HOSTNAME="archlinux-zbook"
@@ -48,16 +50,19 @@ y
 
 modprobe dm_mod
 
+cryptsetup luksFormat $PHY_VOL
+cryptsetup open $PHY_VOL $CONTAINER
+
 #########################
 # create physical volume
 #########################
-pvcreate $PHY_VOL
+pvcreate $CONT_VOL
 pvdisplay
 
 ######################
 # create volume group
 ######################
-vgcreate $VOL_GRP $PHY_VOL
+vgcreate $VOL_GRP $CONT_VOL
 vgdisplay
 
 #########################
@@ -93,9 +98,7 @@ genfstab -p /mnt > /mnt/etc/fstab
 
 echo $HOSTNAME > /mnt/etc/hostname
 echo LANG=en_US.UTF-8 > /mnt/etc/locale.conf
-
 echo KEYMAP=$KEYMAP > /mnt/etc/vconsole.conf
-echo FONT=lat9w-16 >> /mnt/etc/vconsole.conf
 
 #####################################
 # enable locales in locale.gen
@@ -112,33 +115,35 @@ en_US ISO-8859-1
 #####################################
 mkdir -p /mnt/boot/loader/entries
 
+UUID=`blkid -s UUID -o value $PHY_VOL`
+
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux.img
-options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux LTS
 linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts.img
-options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux Fallback
 linux   /vmlinuz-linux
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-fallback.img
-options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-fallback.conf
 
 echo "# https://systemd.io/BOOT_LOADER_SPECIFICATION/#type-1-boot-loader-specification-entries
 title   Arch Linux LTS Fallback
 linux   /vmlinuz-linux-lts
 initrd  /intel-ucode.img
 initrd  /initramfs-linux-lts-fallback.img
-options root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
+options rd.luks.name=$UUID=$CONTAINER root=LABEL=lv_root rw resume=LABEL=lv_swap" > /mnt/boot/loader/entries/arch-lts-fallback.conf
 
 echo "# https://man.archlinux.org/man/loader.conf.5#OPTIONS
 default arch.conf
@@ -153,6 +158,7 @@ auto-firmware 1" > /mnt/boot/loader/loader.conf
 # 2. mkinitcpio.conf:
 # MODULES=(i915 intel_agp)
 # HOOKS=(base systemd autodetect modconf block sd-vconsole lvm2 filesystems keyboard fsck)
+# HOOKS=(base systemd autodetect keyboard sd-vconsole modconf block sd-encrypt lvm2 filesystems fsck)
 #####################################
 nano /mnt/etc/fstab
 nano /mnt/etc/mkinitcpio.conf
@@ -167,7 +173,7 @@ ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 hwclock --systohc --utc
 
 pacman -Sy
-pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode efibootmgr
+pacman -S --noconfirm lvm2 linux-firmware sudo intel-ucode
 
 mkinitcpio -P
 
@@ -208,9 +214,6 @@ swapoff -a
 
 # Reboot into the new system, don't forget to remove the cd/usb
 #reboot
-
-#pacman -S --noconfirm plasma-meta kde-applications-meta sddm sddm-kcm
-#systemctl enable sddm
 
 #pacman -S --noconfirm virtualbox-guest-utils
 #systemctl enable vboxservice
